@@ -1,0 +1,110 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Poppins", sans-serif;
+}
+
+.login-page {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(to right, #e8ecf1 50%, #f9fafc 50%);
+}
+
+/* Left Side - Login Area */
+.login-left {
+  flex: 1;
+  background: #dfe4ea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  background: #ffffff;
+  padding: 40px 50px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 360px;
+  text-align: left;
+}
+
+.app-title {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.app-subtitle {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.btn-login {
+  width: 100%;
+  background-color: #0056b3;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+  background-color: #003d80;
+}
+
+.extra-links {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.extra-links a {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+.extra-links a:hover {
+  text-decoration: underline;
+}
+
+/* Right Side - Quote Section */
+.login-right {
+  flex: 1;
+  background: #f9fafc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.quote-container {
+  max-width: 400px;
+}
+
+.app-name {
+  font-size: 28px;
+  color: #0a2e57;
+  margin-bottom: 15px;
+}
+
+.quote {
+  font-size: 18px;
+  color: #4a4a4a;
+  font-style: italic;
+  line-height: 1.5;
+}

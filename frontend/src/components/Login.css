@@ -1,0 +1,267 @@
+/* ========================== */
+/* Global Body Setup */
+/* ========================== */
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #dbe9ff;
+}
+
+/* ========================== */
+/* MAIN LOGIN CONTAINER */
+/* ========================== */
+.login-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* Dark overlay */
+.login-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+}
+
+/* place above overlay */
+.illustration-panel,
+.form-panel {
+    position: relative;
+    z-index: 2;
+}
+
+/* ========================== */
+/* LEFT ILLUSTRATION PANEL */
+/* ========================== */
+.illustration-panel {
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+    color: white;
+}
+
+.side-illustration {
+    width: 70%;
+    margin-bottom: 20px;
+}
+
+.illustration-panel h2 {
+    font-size: 2rem;
+    margin: 15px 0;
+}
+
+.illustration-panel p {
+    font-size: 1.1rem;
+    opacity: 0.85;
+}
+
+/* ========================== */
+/* RIGHT FORM PANEL */
+/* ========================== */
+.form-panel {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+
+    /* 🌈 Premium smooth gradient */
+    background: linear-gradient(
+        135deg,
+        rgba(175, 200, 255, 0.55) 0%,
+        rgba(205, 220, 255, 0.75) 40%,
+        rgba(240, 245, 255, 0.9) 100%
+    );
+
+    backdrop-filter: blur(6px);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glow effect */
+.form-panel::before {
+    content: "";
+    position: absolute;
+    right: 10%;
+    top: 20%;
+    width: 350px;
+    height: 350px;
+    background: rgba(0, 90, 255, 0.25);
+    filter: blur(120px);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+/* prevent glow from covering elements */
+.form-panel * {
+    z-index: 2;
+}
+
+/* ========================== */
+/* GLASS CARD */
+/* ========================== */
+.blurred-card {
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 22px;
+    padding: 40px 35px;
+    width: 360px;
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+    text-align: center;
+
+    /* animation */
+    animation: fadeUp .8s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.blurred-card h3 {
+    font-size: 1.9rem;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #444;
+    margin-bottom: 25px;
+}
+
+/* ========================== */
+/* INPUT FIELDS */
+/* ========================== */
+.input-group {
+    position: relative;
+    margin-bottom: 22px;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #3a63cc;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 15px 14px 45px;
+    border-radius: 12px;
+    border: none;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    outline: none;
+    box-sizing: border-box; /* 🚨 prevents overflow */
+}
+
+/* ========================== */
+/* BUTTON */
+/* ========================== */
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(145deg, #4c7cff, #2950cc);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* ========================== */
+/* ERROR MESSAGE */
+/* ========================== */
+.error-message {
+    background: #ffeded;
+    color: #b70000;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #ff9e9e;
+}
+
+/* ========================== */
+/* LINKS */
+/* ========================== */
+.secondary-links {
+    margin-top: 25px;
+    font-size: 0.95rem;
+}
+
+.secondary-links a {
+    color: #003cff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+
+/* ========================== */
+/* RESPONSIVE */
+/* ========================== */
+@media (max-width: 950px) {
+    .login-wrapper {
+        flex-direction: column;
+    }
+    .illustration-panel {
+        display: none;
+    }
+    .form-panel {
+        width: 100%;
+    }
+}
+/* ========================== */
+/* RIGHT PANEL ILLUSTRATION */
+/* ========================== */
+.right-illustration {
+    width: 150px;
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s ease;
+}
+
+@media (max-width: 950px) {
+    .right-illustration {
+        width: 120px;
+        margin-top: 20px;
+    }
+}
+/* ========================== */
+/* LOGIN HEADER WITH IMAGE */
+/* ========================== */
+
+.login-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+
+.login-box {
+  text-align: center;       /* centers everything inside */
+  display: flex;
+  flex-direction: column;
+  align-items: center;       /* horizontal center */
+  justify-content: center;   /* vertical center if needed */
+}
+
+.login-icon {
+  width: 110px;        /* adjust size */
+  height: 110px;
+  margin-bottom: 12px;
+}
