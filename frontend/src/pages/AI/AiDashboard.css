@@ -1,0 +1,229 @@
+/*******************************
+  MAIN DASHBOARD CONTAINER
+*******************************/
+.ai-dashboard {
+  padding: 30px;
+  max-width: 1300px;
+  margin: auto;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/*******************************
+  SUMMARY TOP GRID
+*******************************/
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.summary-card {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 20px;
+  border-radius: 14px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(4px);
+}
+
+.summary-card h2 {
+  margin-top: 8px;
+}
+
+/*******************************
+  COMPONENT CARD
+*******************************/
+.component-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.component-card h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+/*******************************
+  GLOBAL GRID FOR CATEGORY/FORECAST/PEAK
+*******************************/
+.insight-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+.insight-card {
+  padding: 0;
+}
+
+@media (min-width: 900px) {
+  .insight-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/*******************************
+  ADVANCED INSIGHTS (HEALTH, BUDGET, ANOMALIES)
+*******************************/
+.score-display {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  justify-content: center;
+}
+
+.score-circle {
+  width: 110px;
+  height: 110px;
+  border: 4px solid #5B86E5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 4px;
+}
+
+.score-number {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.score-total {
+  opacity: 0.7;
+}
+
+.budget-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.budget-stat {
+  background: rgba(255,255,255,0.05);
+  padding: 10px 15px;
+  border-radius: 10px;
+  flex: 1;
+  text-align: center;
+  min-width: 140px;
+}
+
+.budget-list,
+.anomaly-list,
+.category-list,
+.insights-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.budget-item,
+.anomaly-item,
+.category-item {
+  padding: 15px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/*******************************
+  CHART WRAPPERS
+*******************************/
+.recharts-responsive-container {
+  margin-top: 10px;
+}
+
+/*******************************
+  MONTHLY FORECAST
+*******************************/
+.forecast-highlight {
+  background: rgba(255,255,255,0.04);
+  padding: 14px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+/*******************************
+  PEAK DAYS
+*******************************/
+.peak-day-highlight {
+  text-align: center;
+  padding: 10px;
+}
+
+.period-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.period-item {
+  background: rgba(255,255,255,0.04);
+  padding: 10px;
+  border-radius: 8px;
+  flex: 1;
+  text-align: center;
+}
+
+/*******************************
+  LOADING + ERROR UI
+*******************************/
+.loading-container {
+  text-align: center;
+  margin-top: 120px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ffffff33;
+  border-top: 5px solid #4db4ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.error-container {
+  background: rgba(255, 60, 60, 0.15);
+  border: 1px solid rgba(255, 60, 60, 0.4);
+  border-radius: 12px;
+  padding: 25px;
+  width: 420px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+/*******************************
+  FOOTER
+*******************************/
+.dashboard-footer {
+  margin-top: 20px;
+  text-align: center;
+  opacity: 0.6;
+}

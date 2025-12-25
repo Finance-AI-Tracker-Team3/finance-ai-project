@@ -1,0 +1,101 @@
+.signup-wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+/* LEFT - SAME STYLE AS LOGIN */
+.signup-left-panel {
+  flex: 1;
+  background: linear-gradient(145deg, #cfe0ff, #8ab8ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-illustration {
+  width: 85%;
+  max-width: 420px;
+}
+
+/* RIGHT - SIGNUP FORM */
+.signup-right-panel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e9effa;
+}
+
+.signup-card {
+  width: 80%;
+  max-width: 380px;
+  padding: 45px;
+  background: white;
+  border-radius: 22px;
+  text-align: center;
+  box-shadow: 0px 14px 40px rgba(0, 0, 0, 0.12);
+  position: relative;
+}
+
+.form-icon {
+  width: 100px;
+  opacity: 0.7;
+  margin-bottom: 12px;
+}
+
+/* Input fields */
+input {
+  width: 100%;
+  padding: 14px;
+  margin-top: 14px;
+  border: none;
+  border-radius: 12px;
+  background: #f1f4f9;
+}
+
+.checkbox-box {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0 10px;
+  font-size: 13px;
+  text-align: left;
+}
+
+.signup-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  border: none;
+  background: #006cff;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.signup-btn:hover {
+  background: #0051cc;
+}
+
+.switch-auth {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.error-text {
+  font-size: 13px;
+  color: #d00000;
+  margin: 8px 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .signup-wrapper {
+    flex-direction: column;
+  }
+  .signup-left-panel {
+    height: 250px;
+  }
+}

@@ -1,0 +1,9 @@
+import api from "./apiService";
+
+export const getBudgets = () => api.get("/api/budgets");
+
+export const createBudget = (data) => api.post("/api/budgets", data);
+
+export const updateBudget = (id, data) => api.put(`/api/budgets/${id}`, data);
+
+export const deleteBudget = (id) => api.delete(`/api/budgets/${id}`);
