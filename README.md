@@ -205,7 +205,29 @@ Clean UI/UX
 Production-ready backend design
 markdown
 
+---
 
+🚀 Future Scope & AI Roadmap
+
+BudgetWiseAI is designed to evolve into an intelligent personal financial advisor
+using advanced AI, machine learning, and scalable cloud architecture.
+
+Planned Enhancements:
+
+- AI-based savings goal prediction with success probability
+- Personalized spending and budget recommendations
+- Income vs expense optimization engine
+- Multi-channel notifications (Email, WhatsApp, Push)
+- Conversational AI finance assistant (Chatbot)
+- Explainable AI insights for transparency
+- AI-generated financial reports (PDF / CSV)
+- Continuous AI model retraining
+- Cloud deployment with Docker & CI/CD
+- Mobile app & PWA support
+
+Vision:
+To transform BudgetWiseAI into a proactive, intelligent financial companion
+that helps users achieve long-term financial stability.
 
 
 
