@@ -58,12 +58,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         // 🔓 PUBLIC ENDPOINTS
-                        .requestMatchers(
-                                "/auth/**",
+                        .requestMatchers("/auth/login",
+                                "/auth/signup",
+                                "/auth/forgot-password",
+                                "/auth/reset-password",
                                 "/swagger-ui/**",
-                                "/swagger-ui.html",
-                                "/v3/api-docs/**"
-                        ).permitAll()
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html").permitAll()
 
                         // 🔓 ALLOW ALL FINANCE APIs FOR LOGGED-IN USERS
                         .requestMatchers(
@@ -75,12 +76,8 @@ public class SecurityConfig {
                                 "/api/reminders/**"
                         ).permitAll()
 
-                        // 🔒 ADMIN ONLY
-                        .requestMatchers(
-                                "/roles/**",
-                                "/user-roles/**",
-                                "/screens/**"
-                        ).hasRole("ADMIN")
+                        .requestMatchers("/roles/**", "/user-roles/**", "/screens/**")
+                        .hasRole("ADMIN")
 
                         .anyRequest().authenticated()
                 )
@@ -96,7 +93,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("http://localhost:3000"));
+        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8085", "http://localhost:5173",));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
