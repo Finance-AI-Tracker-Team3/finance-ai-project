@@ -65,6 +65,16 @@
 
 ---
 
+
+🧩 Technical Implementation
+- AI health score evaluation engine
+- Threshold-based alert rules
+- One-time notification logic to prevent spam
+- Extensible notification service design
+- Event-driven frontend alerts (React Toastify)
+
+---
+
 ## 🧠 Tech Stack
 
 ### Frontend
