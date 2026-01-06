@@ -75,6 +75,20 @@
 
 ---
 
+🔔 Alerts & Notifications System (Planned / In Progress)
+
+BudgetWiseAI includes a scalable and extensible alerting architecture designed to deliver real-time financial notifications and future multi-channel alerts.
+
+🔔 Alert Delivery Channels
+- In-app toast notifications (real-time)
+- Dashboard warning banners
+
+Designed for future support of:
+- 📧 Email alerts
+- 📱 WhatsApp / SMS notifications
+- 🔔 Push notifications (PWA / Mobile)
+
+---
 ## 🧠 Tech Stack
 
 ### Frontend
