@@ -32,7 +32,9 @@ public class SavingsGoalService implements SavingsGoalServiceInterface {
 
     @Override
     public SavingsGoal createGoal(SavingsGoal goal) {
-        goal.setCurrentAmount(BigDecimal.ZERO);
+        if (goal.getCurrentAmount() == null) {
+            goal.setCurrentAmount(BigDecimal.ZERO);
+        }
         return goalRepo.save(goal);
     }
 
@@ -45,18 +47,28 @@ public class SavingsGoalService implements SavingsGoalServiceInterface {
     @Override
     public SavingsGoal transferFromAccount(Long goalId, Long accountId, BigDecimal amount) {
 
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than zero");
+        }
+
         Long userId = SecurityUtil.getCurrentUserId();
         ownershipValidator.validateSavingsGoal(goalId, userId);
         ownershipValidator.validateAccount(accountId, userId);
 
         SavingsGoal goal = goalRepo.findById(goalId)
-                .orElseThrow(() -> new RuntimeException("Goal not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Goal not found"));
 
         Account account = accountRepo.findById(accountId)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Account not found"));
 
+        // 🚫 BLOCK CREDIT CARD
+        if (account.getAccountType().name().equalsIgnoreCase("CREDIT_CARD")) {
+            throw new IllegalArgumentException("Credit card cannot be used for savings");
+        }
+
+        // 🚫 BLOCK NEGATIVE / INSUFFICIENT BALANCE
         if (account.getBalance().compareTo(amount) < 0) {
-            throw new RuntimeException("Insufficient balance");
+            throw new IllegalArgumentException("Insufficient balance");
         }
 
         account.setBalance(account.getBalance().subtract(amount));

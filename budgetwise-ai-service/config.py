@@ -5,7 +5,7 @@ class Config:
     MYSQL_HOST = 'localhost'
     MYSQL_USER = 'root'  # Change this to your MySQL username
     MYSQL_PASSWORD = '_Abs0042_'  # Change this to your MySQL password
-    MYSQL_DB = 'budgetwise_ai'
+    MYSQL_DB = 'budgetwise'
     MYSQL_PORT = 3306
 
     # Flask Configuration

@@ -7,158 +7,137 @@ class FinancialHealthScorer:
     """AI Model: Calculates financial health score based on spending behavior"""
 
     def calculate_score(self, expenses_data, user_income=None):
-        """
-        Calculates financial health score (0-100)
-        Based on multiple factors:
-        - Consistency (30 points)
-        - Trend (25 points)
-        - Category diversity (20 points)
-        - Budget adherence (25 points)
-        """
-        if not expenses_data or len(expenses_data) < 10:
+
+        if not expenses_data or len(expenses_data) < 5:
             return {
-                "score": 0,
-                "message": "Insufficient data for scoring"
+                "overall_score": 0,
+                "grade": "Insufficient Data",
+                "breakdown": {},
+                "insights": ["Add more transactions to generate insights"],
+                "analysis_date": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
 
         df = pd.DataFrame(expenses_data)
-        df['amount'] = df['amount'].apply(lambda x: float(x) if isinstance(x, Decimal) else x)
-        df['date'] = pd.to_datetime(df['date'])
-        df['month'] = df['date'].dt.to_period('M')
+        df["amount"] = df["amount"].apply(lambda x: float(x) if isinstance(x, Decimal) else x)
+        df["date"] = pd.to_datetime(df["date"])
+        df["month"] = df["date"].dt.to_period("M")
 
-        # Factor 1: Spending Consistency (0-30 points)
-        monthly_totals = df.groupby('month')['amount'].sum()
-        consistency_score = self._calculate_consistency_score(monthly_totals)
+        # Monthly totals
+        monthly_totals = df.groupby("month")["amount"].sum()
 
-        # Factor 2: Spending Trend (0-25 points)
-        trend_score = self._calculate_trend_score(monthly_totals)
+        consistency = self._consistency_score(monthly_totals)
+        trend = self._trend_score(monthly_totals)
+        diversity = self._diversity_score(df)
+        budget = self._budget_score(monthly_totals, user_income)
 
-        # Factor 3: Category Diversity (0-20 points)
-        diversity_score = self._calculate_diversity_score(df)
-
-        # Factor 4: Budget Adherence (0-25 points)
-        budget_score = self._calculate_budget_score(df, user_income)
-
-        total_score = consistency_score + trend_score + diversity_score + budget_score
+        total = consistency + trend + diversity + budget
 
         return {
-            "overall_score": round(total_score, 1),
-            "grade": self._get_grade(total_score),
+            "overall_score": round(total, 1),
+            "grade": self._grade(total),
             "breakdown": {
-                "consistency": round(consistency_score, 1),
-                "trend": round(trend_score, 1),
-                "diversity": round(diversity_score, 1),
-                "budget_adherence": round(budget_score, 1)
+                "consistency": round(consistency, 1),
+                "trend": round(trend, 1),
+                "diversity": round(diversity, 1),
+                "budget_adherence": round(budget, 1)
             },
-            "insights": self._generate_score_insights(total_score, consistency_score, trend_score),
+            "insights": self._insights(total, consistency, trend, budget),
             "analysis_date": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
 
-    def _calculate_consistency_score(self, monthly_totals):
-        """Lower variance = higher consistency = better score"""
-        if len(monthly_totals) < 2:
-            return 15  # Default mid score
+    # ---------- SCORING HELPERS ----------
 
-        mean = monthly_totals.mean()
-        std = monthly_totals.std()
+    def _consistency_score(self, monthly):
+        if len(monthly) < 2:
+            return 15
+
+        std = monthly.std()
+        mean = monthly.mean()
 
         if mean == 0:
             return 15
 
-        cv = (std / mean) * 100  # Coefficient of variation
+        cv = (std / mean) * 100
 
-        # Lower CV = more consistent
-        if cv < 20:
+        if cv < 25:
             return 30
-        elif cv < 40:
+        elif cv < 50:
             return 22
-        elif cv < 60:
+        elif cv < 75:
             return 15
         else:
             return 8
 
-    def _calculate_trend_score(self, monthly_totals):
-        """Decreasing or stable spending = good"""
-        if len(monthly_totals) < 2:
+    def _trend_score(self, monthly):
+        if len(monthly) < 2:
             return 12
 
-        first_half = monthly_totals.iloc[:len(monthly_totals) // 2].mean()
-        second_half = monthly_totals.iloc[len(monthly_totals) // 2:].mean()
+        first = monthly.iloc[:len(monthly)//2].mean()
+        second = monthly.iloc[len(monthly)//2:].mean()
 
-        change = ((second_half - first_half) / first_half) * 100 if first_half > 0 else 0
-
-        if change < -10:  # Decreasing spending
-            return 25
-        elif change < 5:  # Stable
-            return 20
-        elif change < 15:  # Slight increase
+        if first == 0:
             return 12
-        else:  # High increase
-            return 5
 
-    def _calculate_diversity_score(self, df):
-        """Balanced spending across categories = better"""
-        category_spending = df.groupby('category')['amount'].sum()
+        change = ((second - first) / first) * 100
 
-        num_categories = len(category_spending)
-
-        if num_categories >= 5:
-            return 20
-        elif num_categories >= 3:
-            return 15
-        elif num_categories >= 2:
-            return 10
-        else:
-            return 5
-
-    def _calculate_budget_score(self, df, user_income):
-        """Spending < 70% of income = good (if income provided)"""
-        if user_income is None or user_income <= 0:
-            return 12  # Default mid score if no income data
-
-        total_spending = df['amount'].sum()
-        num_months = df['date'].dt.to_period('M').nunique()
-        avg_monthly_spending = total_spending / num_months if num_months > 0 else total_spending
-
-        spending_ratio = (avg_monthly_spending / user_income) * 100
-
-        if spending_ratio < 50:
+        if change < -10:
             return 25
-        elif spending_ratio < 70:
+        elif change < 10:
             return 18
-        elif spending_ratio < 90:
+        elif change < 25:
             return 10
         else:
-            return 3
+            return 5
 
-    def _get_grade(self, score):
-        """Convert score to letter grade"""
+    def _diversity_score(self, df):
+        categories = df["category"].nunique()
+        return min(categories * 4, 20)
+
+    def _budget_score(self, monthly, income):
+        if not income or income <= 0:
+            return 12
+
+        avg_spend = monthly.mean()
+        ratio = (avg_spend / income) * 100
+
+        if ratio < 50:
+            return 25
+        elif ratio < 70:
+            return 18
+        elif ratio < 90:
+            return 10
+        else:
+            return 5
+
+    def _grade(self, score):
         if score >= 85:
             return "A+ Excellent"
-        elif score >= 75:
+        elif score >= 70:
             return "A Good"
-        elif score >= 65:
+        elif score >= 55:
             return "B Fair"
-        elif score >= 50:
+        elif score >= 40:
             return "C Needs Improvement"
         else:
             return "D Poor"
 
-    def _generate_score_insights(self, total_score, consistency_score, trend_score):
-        """Generate personalized insights"""
+    def _insights(self, total, consistency, trend, budget):
         insights = []
 
-        if total_score >= 80:
-            insights.append("🎉 Excellent financial discipline! Keep it up!")
-        elif total_score >= 60:
-            insights.append("👍 Good spending habits. Room for improvement.")
+        if total >= 75:
+            insights.append("🎉 Strong financial discipline")
+        elif total >= 55:
+            insights.append("👍 Good habits, can improve savings")
         else:
-            insights.append("⚠️ Consider reviewing your spending patterns.")
+            insights.append("⚠️ Spending needs attention")
 
-        if consistency_score < 15:
-            insights.append("💡 Your spending varies significantly. Try setting monthly budgets.")
+        if consistency < 15:
+            insights.append("💡 Your spending varies a lot month to month")
 
-        if trend_score < 12:
-            insights.append("📈 Your spending is increasing. Look for areas to cut back.")
+        if trend < 10:
+            insights.append("📈 Spending trend is rising")
+
+        if budget < 10:
+            insights.append("🚨 Expenses consume most of your income")
 
         return insights
